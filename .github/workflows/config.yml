@@ -1,0 +1,49 @@
+name: Automated tests ProrabTech
+
+on:
+    workflow_dispatch:
+        inputs:
+            deployment_target:
+                description: Choose target
+                required: true
+                default: all
+                type: choice
+                options:
+                    - all
+                    - regression
+                    - smoke
+
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+          - name: setup Python
+            uses: actions/setup-python@v5
+            with:
+                python-version: "3.14"
+          - name: Install Chrome
+            run: sudo apt-get install google-chrome-stable
+          - name: install dependencies
+            run: pip install -r requirements.txt
+          - name: Run all tests
+            if: "github.event.inputs.deployment_target == 'all'"
+            env:
+                LOGIN: ${{ secrets.LOGIN }}
+                PASSWORD: ${{ secrets.PASSWORD }}
+            run: pytest
+          - name: Run regression tests
+            if: "github.event.inputs.deployment_target == 'regression'"
+            env:
+                LOGIN: ${{ secrets.LOGIN }}
+                PASSWORD: ${{ secrets.PASSWORD }}
+            run: pytest -m regression
+          - name: Run smoke tests
+            if: "github.event.inputs.deployment_target == 'smoke'"
+            env:
+                LOGIN: ${{ secrets.LOGIN }}
+                PASSWORD: ${{ secrets.PASSWORD }}
+            run: pytest -m smoke
