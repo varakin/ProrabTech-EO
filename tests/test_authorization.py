@@ -1,8 +1,11 @@
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
+@pytest.mark.regression
+@pytest.mark.smoke
 def test_authorization_and_logout(driver, authorization, dashboard, profile):
     authorization.open()
     authorization.is_opened()
@@ -17,6 +20,7 @@ def test_authorization_and_logout(driver, authorization, dashboard, profile):
     authorization.is_opened()
 
 
+@pytest.mark.regression
 def test_wrong_email(driver, authorization):
     authorization.open()
     authorization.is_opened()
@@ -27,6 +31,8 @@ def test_wrong_email(driver, authorization):
     authorization.visible_toaster()
     assert authorization.text_toaster_authorization() == 'Пользователь не найден'
 
+
+@pytest.mark.regression
 def test_wrong_password(driver, authorization):
     authorization.open()
     authorization.is_opened()
@@ -37,6 +43,8 @@ def test_wrong_password(driver, authorization):
     authorization.visible_toaster()
     assert authorization.text_toaster_authorization() == 'Пароль неверный'
 
+
+@pytest.mark.regression
 def test_incorrect_email(driver, authorization):
     authorization.open()
     authorization.is_opened()
@@ -45,6 +53,8 @@ def test_incorrect_email(driver, authorization):
     authorization.enter_password()
     authorization.check_disabled_button_login()
 
+
+@pytest.mark.regression
 def test_shot_password(driver, authorization):
     authorization.open()
     authorization.is_opened()
@@ -53,6 +63,7 @@ def test_shot_password(driver, authorization):
     authorization.enter_shot_password()
     authorization.check_disabled_button_login()
 
+@pytest.mark.regression
 def test_password_restore_cancel(driver, authorization, password_restore):
     authorization.open()
     authorization.is_opened()
@@ -62,6 +73,8 @@ def test_password_restore_cancel(driver, authorization, password_restore):
     password_restore.click_button_cancel()
     authorization.is_opened()
 
+@pytest.mark.regression
+@pytest.mark.smoke
 def test_password_restore_send_email(driver, authorization, password_restore):
     authorization.open()
     authorization.is_opened()

@@ -1,7 +1,18 @@
 name: Automated tests ProrabTech
 
 on:
-    push
+    workflow_dispatch:
+        inputs:
+            deployment_target:
+                description: Choose target
+                required: true
+                default: all
+                type: choice
+                options:
+                    - all
+                    - regression
+                    - smoke
+
 
 jobs:
     test:
@@ -18,8 +29,18 @@ jobs:
             run: sudo apt-get install google-chrome-stable
           - name: install dependencies
             run: pip install -r requirements.txt
-          - name: Run tests
+          - name: Run all tests
             env:
                 LOGIN: ${{ secrets.LOGIN }}
                 PASSWORD: ${{ secrets.PASSWORD }}
             run: pytest
+          - name: Run regression tests
+            env:
+                LOGIN: ${{ secrets.LOGIN }}
+                PASSWORD: ${{ secrets.PASSWORD }}
+            run: pytest -m regression
+          - name: Run smoke tests
+            env:
+                LOGIN: ${{ secrets.LOGIN }}
+                PASSWORD: ${{ secrets.PASSWORD }}
+            run: pytest -m smoke
