@@ -15,6 +15,7 @@ class AuthorizationPage(BasePage):
     LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")
     REGISTRATION_BUTTON = (By.XPATH, "//a[@class='outlined medium button sign-up-button']")
     TOASTER = (By.XPATH, "//div[@data-content]")
+    PASSWORD_RESTORE = (By.XPATH, "//a[@class='password-restore']")
 
     def wait_loader(self):
         self.wait_for_element(self.USERNAME_FIELD)
@@ -40,3 +41,16 @@ class AuthorizationPage(BasePage):
 
     def text_toaster_authorization(self):
         return self.find_element(self.TOASTER).text
+    
+    def enter_incorrect_email(self, email='incorrect.password.ru'):
+        self.type_text(self.USERNAME_FIELD, email)
+
+    def enter_shot_password(self, password='1234'):
+        self.type_text(self.USERNAME_FIELD, password)
+
+    def check_disabled_button_login(self):
+        self.is_button_disabled(self.LOGIN_BUTTON)
+
+    def click_password_restore(self):
+        self.click(self.PASSWORD_RESTORE)
+

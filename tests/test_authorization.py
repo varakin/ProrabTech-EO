@@ -37,3 +37,44 @@ def test_wrong_password(driver, authorization):
     authorization.visible_toaster()
     assert authorization.text_toaster_authorization() == 'Пароль неверный'
 
+def test_incorrect_email(driver, authorization):
+    authorization.open()
+    authorization.is_opened()
+    authorization.wait_loader()
+    authorization.enter_incorrect_email()
+    authorization.enter_password()
+    authorization.check_disabled_button_login()
+
+def test_shot_password(driver, authorization):
+    authorization.open()
+    authorization.is_opened()
+    authorization.wait_loader()
+    authorization.enter_email()
+    authorization.enter_shot_password()
+    authorization.check_disabled_button_login()
+
+def test_password_restore_cancel(driver, authorization, password_restore):
+    authorization.open()
+    authorization.is_opened()
+    authorization.wait_loader()
+    authorization.click_password_restore()
+    password_restore.is_opened()
+    password_restore.click_button_cancel()
+    authorization.is_opened()
+
+def test_password_restore_send_email(driver, authorization, password_restore):
+    authorization.open()
+    authorization.is_opened()
+    authorization.wait_loader()
+    authorization.click_password_restore()
+    password_restore.is_opened()
+    password_restore.enter_email()
+    password_restore.click_button_send()
+    password_restore.check_message_restore()
+    password_restore.click_return_login_page_button()
+    authorization.is_opened()
+
+
+    
+
+

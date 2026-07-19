@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from pages.authorization_page import AuthorizationPage
 from pages.dashboard_page import DashboardPage
 from pages.profile_page import ProfilePage
+from pages.password_restore import PasswordRestorePage
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -29,3 +30,7 @@ def dashboard(driver):
 @pytest.fixture
 def profile(driver):
     return ProfilePage(driver)
+
+@pytest.fixture
+def password_restore(driver):
+    return PasswordRestorePage(driver)

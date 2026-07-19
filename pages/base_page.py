@@ -11,6 +11,7 @@ class BasePage:
     LOGIN_PAGE = f"{HOST}/login"
     DASHBOARD_PAGE = f"{HOST}/constructions"
     PROFILE_PAGE = f"{HOST}/profile"
+    PASSWORD_RESTORE_PAGE = f"{HOST}/password-restore-email"
 
     PROFILE_BUTTON = (By.XPATH, "//div[@class='avatar-block']")
     SPINNER = (By.XPATH, "//dialog[@class='loading-dialog']")
@@ -41,6 +42,15 @@ class BasePage:
     def wait_for_element_clickable(self, locator):
         return self.wait.until(EC.element_to_be_clickable(locator))
     
+    def wait_for_element_clickable(self, locator):
+        return self.wait.until(EC.element_to_be_clickable(locator))
+    
+    def is_button_disabled(self, locator):
+        return self.find_element(locator).is_enabled()
+    
+    def result_text(self, locator):
+        return self.find_element(locator).text
+
     def open(self):
         self.driver.get(self.PAGE_URL)
 
