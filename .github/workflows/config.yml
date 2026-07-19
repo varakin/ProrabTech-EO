@@ -30,16 +30,19 @@ jobs:
           - name: install dependencies
             run: pip install -r requirements.txt
           - name: Run all tests
+            if: "github.event.inputs.deployment_target == 'all'"
             env:
                 LOGIN: ${{ secrets.LOGIN }}
                 PASSWORD: ${{ secrets.PASSWORD }}
             run: pytest
           - name: Run regression tests
+            if: "github.event.inputs.deployment_target == 'regression'"
             env:
                 LOGIN: ${{ secrets.LOGIN }}
                 PASSWORD: ${{ secrets.PASSWORD }}
             run: pytest -m regression
           - name: Run smoke tests
+            if: "github.event.inputs.deployment_target == 'smoke'"
             env:
                 LOGIN: ${{ secrets.LOGIN }}
                 PASSWORD: ${{ secrets.PASSWORD }}
