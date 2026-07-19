@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
+import os
 
 
 class PasswordRestorePage(BasePage):
@@ -19,7 +19,8 @@ class PasswordRestorePage(BasePage):
     def click_button_cancel(self):
         self.click(self.CANCEL_BUTTON)
 
-    def enter_email(self, email='test10@lamantin.spb.ru'):
+    def enter_email(self):
+        email = os.getenv("LOGIN")
         self.type_text(self.EMAIL_FIELD, email)
 
     def click_button_send(self):

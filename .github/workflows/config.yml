@@ -1,0 +1,7 @@
+name: Automates tests ProrabTech
+
+on:
+    push
+
+jobs:
+    test:

@@ -5,9 +5,15 @@ from pages.authorization_page import AuthorizationPage
 from pages.dashboard_page import DashboardPage
 from pages.profile_page import ProfilePage
 from pages.password_restore import PasswordRestorePage
+import os
+from dotenv import load_dotenv
 
 
-@pytest.fixture(scope="function", autouse=True)
+load_dotenv()
+LOGIN = os.getenv("LOGIN")
+PASSWORD = os.getenv("PASSWORD")
+
+@pytest.fixture(scope="session")
 def driver():
     options = Options()
     # options.add_argument("--headless")
@@ -34,3 +40,10 @@ def profile(driver):
 @pytest.fixture
 def password_restore(driver):
     return PasswordRestorePage(driver)
+
+# @pytest.fixture
+# def auth_data():
+#     return {
+#         'LOGIN': os.getenv("LOGIN"),
+#         'PASSWORD': os.getenv("PASSWORD")
+#     }
