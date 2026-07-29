@@ -5,6 +5,8 @@ from pages.authorization_page import AuthorizationPage
 from pages.dashboard_page import DashboardPage
 from pages.profile_page import ProfilePage
 from pages.password_restore import PasswordRestorePage
+from pages.new_object_page import NewObjectPage
+
 import os
 from dotenv import load_dotenv
 
@@ -16,7 +18,7 @@ PASSWORD = os.getenv("PASSWORD")
 @pytest.fixture(scope="session")
 def driver():
     options = Options()
-    options.add_argument("--headless")
+    options.add_argument("--headless") # включить для ci/cd
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--window-size=1920,1080")
@@ -40,6 +42,10 @@ def profile(driver):
 @pytest.fixture
 def password_restore(driver):
     return PasswordRestorePage(driver)
+
+@pytest.fixture
+def new_object(driver):
+    return NewObjectPage(driver)
 
 # @pytest.fixture
 # def auth_data():

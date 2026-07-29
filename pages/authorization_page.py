@@ -1,7 +1,6 @@
 from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-import os
 
 
 class AuthorizationPage(BasePage):
@@ -17,17 +16,6 @@ class AuthorizationPage(BasePage):
     TOASTER = (By.XPATH, "//div[@data-content]")
     PASSWORD_RESTORE = (By.XPATH, "//a[@class='password-restore']")
 
-    def wait_loader(self):
-        self.wait_for_element(self.USERNAME_FIELD)
-        self.wait_for_element_invisible(self.SPINNER)
-
-    def enter_email(self):
-        email = os.getenv("LOGIN")
-        self.type_text(self.USERNAME_FIELD, email)
-
-    def enter_password(self):
-        password = os.getenv("PASSWORD")
-        self.type_text(self.PASSWORD_FIELD, password)
 
     def enter_wrong_email(self, email='wrong@password.ru'):
         self.type_text(self.USERNAME_FIELD, email)
@@ -55,4 +43,3 @@ class AuthorizationPage(BasePage):
 
     def click_password_restore(self):
         self.click(self.PASSWORD_RESTORE)
-

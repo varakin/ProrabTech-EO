@@ -2,8 +2,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+from datetime import datetime
+import os
 
 
+name_new_object = str(datetime.now().time())
 
 class BasePage:
 
@@ -12,17 +15,21 @@ class BasePage:
     DASHBOARD_PAGE = f"{HOST}/constructions"
     PROFILE_PAGE = f"{HOST}/profile"
     PASSWORD_RESTORE_PAGE = f"{HOST}/password-restore-email"
+    NEW_OBJECT_PAGE = f"{HOST}/constructions/add"
 
     PROFILE_BUTTON = (By.XPATH, "//div[@class='avatar-block']")
-    SPINNER = (By.XPATH, "//dialog[@class='loading-dialog']")
+    SPINNER = (By.XPATH, "//dialog[@class='loading-dialog'][not(@open)]")
 
 
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10, poll_frequency=1)
-    
+
     def find_element(self, locator):
         return self.driver.find_element(*locator)
+    
+    def find_elements(self, locator):
+        return self.driver.find_elements(*locator)
     
     def click(self, locator):
         self.find_element(locator).click()
@@ -59,3 +66,17 @@ class BasePage:
 
     def click_profile_button(self):
         self.click(self.PROFILE_BUTTON)
+
+    def enter_email(self):
+        email = os.getenv("LOGIN")
+        self.type_text(self.USERNAME_FIELD, email)
+
+    def enter_password(self):
+        password = os.getenv("PASSWORD")
+        self.type_text(self.PASSWORD_FIELD, password)
+
+    def wait_loader(self):
+        self.wait_for_element(self.SPINNER)
+
+    def clear(self, locator):
+        self.find_element(locator).clear()
