@@ -20,13 +20,13 @@ jobs:
 
         steps:
           - name: Checkout repository
-            uses: actions/checkout@v4
+            uses: actions/checkout@v6
           - name: setup Python
-            uses: actions/setup-python@v5
+            uses: actions/setup-python@v6
             with:
                 python-version: "3.14"
           - name: Install Chrome
-            run: sudo apt-get install google-chrome-stable
+            run: sudo apt-get install -y google-chrome-stable
           - name: install dependencies
             run: pip install -r requirements.txt
           - name: Run all tests
@@ -34,16 +34,16 @@ jobs:
             env:
                 LOGIN: ${{ secrets.LOGIN }}
                 PASSWORD: ${{ secrets.PASSWORD }}
-            run: pytest
+            run: pytest -v
           - name: Run regression tests
             if: "github.event.inputs.deployment_target == 'regression'"
             env:
                 LOGIN: ${{ secrets.LOGIN }}
                 PASSWORD: ${{ secrets.PASSWORD }}
-            run: pytest -m regression
+            run: pytest -v -m regression
           - name: Run smoke tests
             if: "github.event.inputs.deployment_target == 'smoke'"
             env:
                 LOGIN: ${{ secrets.LOGIN }}
                 PASSWORD: ${{ secrets.PASSWORD }}
-            run: pytest -m smoke
+            run: pytest -v -m smoke
