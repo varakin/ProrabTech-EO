@@ -9,12 +9,12 @@ class AuthorizationPage(BasePage):
         super().__init__(driver)
 
     PAGE_URL = BasePage.LOGIN_PAGE
-    USERNAME_FIELD = (By.XPATH, "//input[@name='email']")
-    PASSWORD_FIELD = (By.XPATH, "//input[@name='password']")
-    LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")
-    REGISTRATION_BUTTON = (By.XPATH, "//a[@class='outlined medium button sign-up-button']")
-    TOASTER = (By.XPATH, "//div[@data-content]")
-    PASSWORD_RESTORE = (By.XPATH, "//a[@class='password-restore']")
+    USERNAME_FIELD = (By.XPATH, '//input[@name="email"]')
+    PASSWORD_FIELD = (By.XPATH, '//input[@name="password"]')
+    LOGIN_BUTTON = (By.XPATH, '//button[text()="Войти"]')
+    REGISTRATION_BUTTON = (By.XPATH, '//a[@class="outlined medium button sign-up-button"]')
+    TOASTER = (By.XPATH, '//div[@data-content]')
+    PASSWORD_RESTORE = (By.XPATH, '//a[@class="password-restore"]')
 
 
     def enter_wrong_email(self, email='wrong@password.ru'):

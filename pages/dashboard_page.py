@@ -10,10 +10,10 @@ class DashboardPage(BasePage):
         super().__init__(driver)
 
     PAGE_URL = BasePage.DASHBOARD_PAGE
-    NEW_OBJECT_BUTTON = (By.XPATH, "//a[@class='primary medium button add-btn']")
-    NAME_NEW_OBJECT = (By.XPATH, "//div[@class='name'][1]")
-    NUMBERS_OBJECTS = (By.XPATH, "//span[@class='count']")
-    LIST_OBJECTS = (By.XPATH, "//div[@class='constructions']/a")
+    NEW_OBJECT_BUTTON = (By.XPATH, '//a[@class="primary medium button add-btn"]')
+    NAME_NEW_OBJECT = (By.XPATH, '//div[@class="name"][1]')
+    NUMBERS_OBJECTS = (By.XPATH, '//span[@class="count"]')
+    LIST_OBJECTS = (By.XPATH, '//div[@class="constructions"]/a')
 
 
     def create_new_object(self):
@@ -26,3 +26,6 @@ class DashboardPage(BasePage):
         numbers = int(self.result_text(self.NUMBERS_OBJECTS))
         count_objects = len(self.find_elements(self.LIST_OBJECTS)) - 1
         assert numbers == count_objects
+
+    # def enter_created_object(self):
+

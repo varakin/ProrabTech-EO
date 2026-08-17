@@ -10,7 +10,7 @@ class ProfilePage(BasePage):
         super().__init__(driver)
 
     PAGE_URL = BasePage.PROFILE_PAGE
-    LOGOUT_BUTTON = (By.XPATH, "//button[@class='subtle medium button']")
+    LOGOUT_BUTTON = (By.XPATH, '//button[@class="subtle medium button"]')
 
     def click_logout_button(self):
         self.wait_for_element_clickable(self.LOGOUT_BUTTON)
